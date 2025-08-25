@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"
   DTS:refId="Package"
   DTS:CreationDate="1/1/2024 12:00:00 AM"
   DTS:CreatedBy="SSIS Package Designer"
