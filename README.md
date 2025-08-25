@@ -41,6 +41,7 @@ Here are ways you can contribute to this course:
 | 05 | [Using GitHub Copilot with Python](./05-Using-GitHub-Copilot-with-Python?WT.mc_id=academic-113596-abartolo) | Use GitHub Copilot, an AI pair programmer that offers autocomplete-style suggestions as you code, to work with Python. | Enable the GitHub Copilot extension in Visual Studio Code. Craft prompts that can generate useful suggestions from GitHub Copilot. Use GitHub Copilot to improve a Python project. |
 | 06 | [Using GitHub Copilot with C#](./06-Using-GitHub-Copilot-with-CSharp?WT.mc_id=academic-113596-abartolo) | Use GitHub Copilot, an AI pair programmer that offers autocomplete-style suggestions as you code, to work with C#. | Enable the GitHub Copilot extension in Visual Studio Code. Craft prompts that can generate useful suggestions from GitHub Copilot. Use GitHub Copilot to improve a C# Minimal API project. |
 | 07 | [Creating a Mini Game with GitHub Copilot](./06-Creating-Mini-Game-with-GitHub-Copilot?WT.mc_id=academic-113596-abartolo) | Use GitHub Copilot to assist you in building a Python based mini game. | Craft prompts that can generate useful suggestions from GitHub Copilot to incorporate gaming logic and improve your Python based game. |
+| 08 | [Building SSIS Package for API Integration](./08-Building-SSIS-Package-for-API-Integration?WT.mc_id=academic-113596-abartolo) | Use GitHub Copilot to create SSIS packages that integrate with REST APIs. | Learn to use GitHub Copilot for SSIS development, create data integration packages, and implement API authentication patterns. |
 
 
 

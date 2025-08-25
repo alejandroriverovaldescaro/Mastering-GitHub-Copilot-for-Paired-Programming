@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/1/2024 12:00:00 AM"
+  DTS:CreatedBy="SSIS Package Designer"
+  DTS:DTSID="{12345678-1234-1234-1234-123456789012}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="ObjectionLetterApiIntegration"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{12345678-1234-1234-1234-123456789013}">
+  
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  
+  <!-- Package Variables -->
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{ApiEndpoint-GUID}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="ApiEndpoint">
+      <DTS:VariableValue DTS:DataType="8">https://yourserver/api/decisionReport</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{ApiUsername-GUID}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="ApiUsername">
+      <DTS:VariableValue DTS:DataType="8">your_username</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{ApiPassword-GUID}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="ApiPassword">
+      <DTS:VariableValue DTS:DataType="8">your_password</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{ConnectionString-GUID}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="ConnectionString">
+      <DTS:VariableValue DTS:DataType="8">Data Source=your_server;Initial Catalog=ObjectionLettersDB;Integrated Security=SSPI;</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+
+  <!-- Connection Managers -->
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:refId="Package.ConnectionManagers[OLE DB Connection Manager]" DTS:CreationName="OLEDB" DTS:DTSID="{OleDB-Conn-GUID}" DTS:ObjectName="OLE DB Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager>
+          <DTS:Property DTS:Name="Retain">False</DTS:Property>
+          <DTS:Property DTS:Name="ConnectionString">@[User::ConnectionString]</DTS:Property>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+
+  <!-- Package Executables -->
+  <DTS:Executables>
+    <!-- Data Flow Task -->
+    <DTS:Executable DTS:refId="Package\Data Flow Task" DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{DataFlow-GUID}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Data Flow Task" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      
+      <!-- Data Flow Task Properties -->
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline>
+          
+          <!-- OLE DB Source Component -->
+          <components>
+            <component refId="1" name="OLE DB Source" componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support; 7">
+              <properties>
+                <property name="OpenRowset" dataType="System.String" state="default">[dbo].[ObjectionLetters]</property>
+                <property name="SqlCommand" dataType="System.String" state="default">SELECT UB_ID, IH_CRIBNR, Datum, Betreffende, Aanslagnummer, BM_OMSCHRIJVING, Periode, OpenstandBedrag, BestredenBedrag, NietBestredenBedrag, Kosten, TotaalOpenstand, UB_BIJZONDERHEDEN, RU_BIJZONDER, UB_DATUM FROM [dbo].[ObjectionLetters] WHERE IsProcessed = 0 AND Datum >= DATEADD(day, -30, GETDATE()) ORDER BY UB_ID</property>
+                <property name="AccessMode" dataType="System.Int32" state="default">2</property>
+              </properties>
+              <connections>
+                <connection refId="1" connectionManagerID="Package.ConnectionManagers[OLE DB Connection Manager]" connectionManagerRefId="Package.ConnectionManagers[OLE DB Connection Manager]" description="The OLE DB runtime connection used to access the database."/>
+              </connections>
+              <outputs>
+                <output refId="1" name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn refId="1" name="UB_ID" dataType="i4"/>
+                    <outputColumn refId="2" name="IH_CRIBNR" dataType="str" length="50"/>
+                    <outputColumn refId="3" name="Datum" dataType="dbTimeStamp"/>
+                    <outputColumn refId="4" name="Betreffende" dataType="str" length="255"/>
+                    <outputColumn refId="5" name="Aanslagnummer" dataType="str" length="50"/>
+                    <outputColumn refId="6" name="BM_OMSCHRIJVING" dataType="str" length="500"/>
+                    <outputColumn refId="7" name="Periode" dataType="str" length="50"/>
+                    <outputColumn refId="8" name="OpenstandBedrag" dataType="numeric" precision="18" scale="2"/>
+                    <outputColumn refId="9" name="BestredenBedrag" dataType="numeric" precision="18" scale="2"/>
+                    <outputColumn refId="10" name="NietBestredenBedrag" dataType="numeric" precision="18" scale="2"/>
+                    <outputColumn refId="11" name="Kosten" dataType="numeric" precision="18" scale="2"/>
+                    <outputColumn refId="12" name="TotaalOpenstand" dataType="numeric" precision="18" scale="2"/>
+                    <outputColumn refId="13" name="UB_BIJZONDERHEDEN" dataType="str" length="1000"/>
+                    <outputColumn refId="14" name="RU_BIJZONDER" dataType="str" length="1000"/>
+                    <outputColumn refId="15" name="UB_DATUM" dataType="dbTimeStamp"/>
+                  </outputColumns>
+                </output>
+              </outputs>
+            </component>
+
+            <!-- Script Component -->
+            <component refId="2" name="Script Component API Integration" componentClassID="Microsoft.ScriptComponentHost" contactInfo="Script Component;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support; 0">
+              <properties>
+                <property name="ScriptLanguage" dataType="System.String">Microsoft Visual C# 2017</property>
+                <property name="UserCodeModule" dataType="System.String">ScriptMain</property>
+                <property name="ReadOnlyVariables" dataType="System.String">User::ApiEndpoint,User::ApiUsername,User::ApiPassword</property>
+              </properties>
+              <inputs>
+                <input refId="1" name="Input 0">
+                  <inputColumns>
+                    <inputColumn refId="1" name="UB_ID" lineageId="1" usageType="readonly"/>
+                    <inputColumn refId="2" name="IH_CRIBNR" lineageId="2" usageType="readonly"/>
+                    <inputColumn refId="3" name="Datum" lineageId="3" usageType="readonly"/>
+                    <inputColumn refId="4" name="Betreffende" lineageId="4" usageType="readonly"/>
+                    <inputColumn refId="5" name="Aanslagnummer" lineageId="5" usageType="readonly"/>
+                    <inputColumn refId="6" name="BM_OMSCHRIJVING" lineageId="6" usageType="readonly"/>
+                    <inputColumn refId="7" name="Periode" lineageId="7" usageType="readonly"/>
+                    <inputColumn refId="8" name="OpenstandBedrag" lineageId="8" usageType="readonly"/>
+                    <inputColumn refId="9" name="BestredenBedrag" lineageId="9" usageType="readonly"/>
+                    <inputColumn refId="10" name="NietBestredenBedrag" lineageId="10" usageType="readonly"/>
+                    <inputColumn refId="11" name="Kosten" lineageId="11" usageType="readonly"/>
+                    <inputColumn refId="12" name="TotaalOpenstand" lineageId="12" usageType="readonly"/>
+                    <inputColumn refId="13" name="UB_BIJZONDERHEDEN" lineageId="13" usageType="readonly"/>
+                    <inputColumn refId="14" name="RU_BIJZONDER" lineageId="14" usageType="readonly"/>
+                    <inputColumn refId="15" name="UB_DATUM" lineageId="15" usageType="readonly"/>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output refId="1" name="SuccessOutput0" isErrorOut="false">
+                  <outputColumns>
+                    <outputColumn refId="1" name="UB_ID" dataType="i4"/>
+                    <outputColumn refId="2" name="ProcessedDateTime" dataType="dbTimeStamp"/>
+                    <outputColumn refId="3" name="ApiResponse" dataType="str" length="255"/>
+                  </outputColumns>
+                </output>
+                <output refId="2" name="ErrorOutput0" isErrorOut="true">
+                  <outputColumns>
+                    <outputColumn refId="1" name="UB_ID" dataType="i4"/>
+                    <outputColumn refId="2" name="ErrorDescription" dataType="str" length="1000"/>
+                  </outputColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+
+          <!-- Data Flow Paths -->
+          <paths>
+            <path refId="1" startId="1" endId="2" name="OLE DB Source Output"/>
+          </paths>
+
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+
+    <!-- Execute SQL Task for Success Updates -->
+    <DTS:Executable DTS:refId="Package\Execute SQL Task - Update Success" DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{UpdateSuccess-GUID}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Execute SQL Task - Update Success">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData>
+          <SQLTask:Connection>Package.ConnectionManagers[OLE DB Connection Manager]</SQLTask:Connection>
+          <SQLTask:SqlStatementSource>EXEC [dbo].[UpdateObjectionLetterStatus] ?, 'Success', NULL</SQLTask:SqlStatementSource>
+          <SQLTask:ParameterBindings>
+            <SQLTask:ParameterBinding DTS:CreationName="" DTS:DataType="3" DTS:DTSID="{Param1-GUID}" DTS:ObjectName="0" DTS:ParameterDirection="Input" DTS:ParameterName="0" DTS:ParameterSize="-1"/>
+          </SQLTask:ParameterBindings>
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+
+  </DTS:Executables>
+
+  <!-- Package Configuration -->
+  <DTS:DesignTimeProperties>
+    <DTS:Property DTS:Name="PackageType">5</DTS:Property>
+    <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  </DTS:DesignTimeProperties>
+
+</DTS:Executable>

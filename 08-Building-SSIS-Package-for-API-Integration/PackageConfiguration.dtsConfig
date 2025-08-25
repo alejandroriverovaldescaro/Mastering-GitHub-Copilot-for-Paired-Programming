@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SSIS Package Configuration for ObjectionLetterApiIntegration -->
+<!-- This file contains environment-specific configuration values -->
+<Configuration ConfiguredType="Package" Path="\Package" Name="ObjectionLetterApiIntegration">
+  
+  <!-- Database Connection Configuration -->
+  <ConfiguredValue>
+    <ConfiguredValueName>Connections[OLE DB Connection Manager].Properties[ConnectionString]</ConfiguredValueName>
+    <ConfiguredValueDataType>String</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>Database connection string for ObjectionLetters source</ConfiguredValueDescription>
+    <ConfiguredValue>Data Source=your_server;Initial Catalog=ObjectionLettersDB;Integrated Security=SSPI;Connect Timeout=30;</ConfiguredValue>
+  </ConfiguredValue>
+
+  <!-- API Endpoint Configuration -->
+  <ConfiguredValue>
+    <ConfiguredValueName>Variables[User::ApiEndpoint].Properties[Value]</ConfiguredValueName>
+    <ConfiguredValueDataType>String</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>REST API endpoint for decision reports</ConfiguredValueDescription>
+    <ConfiguredValue>https://yourserver/api/decisionReport</ConfiguredValue>
+  </ConfiguredValue>
+
+  <!-- API Authentication Configuration -->
+  <ConfiguredValue>
+    <ConfiguredValueName>Variables[User::ApiUsername].Properties[Value]</ConfiguredValueName>
+    <ConfiguredValueDataType>String</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>API Basic Authentication username</ConfiguredValueDescription>
+    <ConfiguredValue>your_username</ConfiguredValue>
+  </ConfiguredValue>
+
+  <ConfiguredValue>
+    <ConfiguredValueName>Variables[User::ApiPassword].Properties[Value]</ConfiguredValueName>
+    <ConfiguredValueDataType>String</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>API Basic Authentication password (encrypted)</ConfiguredValueDescription>
+    <ConfiguredValue>your_password</ConfiguredValue>
+  </ConfiguredValue>
+
+  <!-- Processing Configuration -->
+  <ConfiguredValue>
+    <ConfiguredValueName>Variables[User::BatchSize].Properties[Value]</ConfiguredValueName>
+    <ConfiguredValueDataType>Int32</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>Number of records to process in each batch</ConfiguredValueDescription>
+    <ConfiguredValue>100</ConfiguredValue>
+  </ConfiguredValue>
+
+  <ConfiguredValue>
+    <ConfiguredValueName>Variables[User::ProcessingDateRange].Properties[Value]</ConfiguredValueName>
+    <ConfiguredValueDataType>Int32</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>Number of days back to process records</ConfiguredValueDescription>
+    <ConfiguredValue>30</ConfiguredValue>
+  </ConfiguredValue>
+
+  <!-- HTTP Client Configuration -->
+  <ConfiguredValue>
+    <ConfiguredValueName>Variables[User::HttpTimeoutSeconds].Properties[Value]</ConfiguredValueName>
+    <ConfiguredValueDataType>Int32</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>HTTP client timeout in seconds</ConfiguredValueDescription>
+    <ConfiguredValue>30</ConfiguredValue>
+  </ConfiguredValue>
+
+  <ConfiguredValue>
+    <ConfiguredValueName>Variables[User::MaxRetryAttempts].Properties[Value]</ConfiguredValueName>
+    <ConfiguredValueDataType>Int32</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>Maximum number of retry attempts for failed API calls</ConfiguredValueDescription>
+    <ConfiguredValue>3</ConfiguredValue>
+  </ConfiguredValue>
+
+  <!-- Logging Configuration -->
+  <ConfiguredValue>
+    <ConfiguredValueName>Variables[User::EnableDetailedLogging].Properties[Value]</ConfiguredValueName>
+    <ConfiguredValueDataType>Boolean</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>Enable detailed logging for troubleshooting</ConfiguredValueDescription>
+    <ConfiguredValue>true</ConfiguredValue>
+  </ConfiguredValue>
+
+  <ConfiguredValue>
+    <ConfiguredValueName>Variables[User::LogFilePath].Properties[Value]</ConfiguredValueName>
+    <ConfiguredValueDataType>String</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>Path for detailed log files</ConfiguredValueDescription>
+    <ConfiguredValue>C:\Logs\SSIS\ObjectionLetterAPI\</ConfiguredValue>
+  </ConfiguredValue>
+
+  <!-- Error Handling Configuration -->
+  <ConfiguredValue>
+    <ConfiguredValueName>Variables[User::FailOnError].Properties[Value]</ConfiguredValueName>
+    <ConfiguredValueDataType>Boolean</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>Whether to fail the package on first error or continue processing</ConfiguredValueDescription>
+    <ConfiguredValue>false</ConfiguredValue>
+  </ConfiguredValue>
+
+  <ConfiguredValue>
+    <ConfiguredValueName>Variables[User::ErrorThreshold].Properties[Value]</ConfiguredValueName>
+    <ConfiguredValueDataType>Int32</ConfiguredValueDataType>
+    <ConfiguredValueScope>Package</ConfiguredValueScope>
+    <ConfiguredValueDescription>Maximum number of errors before failing the package</ConfiguredValueDescription>
+    <ConfiguredValue>10</ConfiguredValue>
+  </ConfiguredValue>
+
+</Configuration>
